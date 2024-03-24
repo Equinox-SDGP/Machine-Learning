@@ -3,6 +3,11 @@ import numpy as np
 from sklearn.linear_model import LinearRegression
 from sklearn.svm import SVR
 import pickle
+import os
+
+# Get the directory of the current script
+current_dir = os.path.dirname(os.path.abspath(__file__))
+model_path = os.path.join(current_dir, 'model.pkl')
 
 
 ## it says there is a FileNotFoundError with model.pkl file. 
@@ -21,6 +26,6 @@ def predict():
     return jsonify({'predicted_ac_output': predicted_ac_output[0]})     # Return predicted AC output as JSON response
 
 if __name__ == '__main__':
-    model = pickle.load(open('model.pkl', 'rb')) #importing the ML model using pickle
+    model = pickle.load(open(model_path, 'rb')) #importing the ML model using pickle
     app.run(debug=True)
 
