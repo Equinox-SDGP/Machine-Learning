@@ -1,18 +1,14 @@
 from flask import Flask, request, jsonify
+import sklearn
 import numpy as np
-from sklearn.linear_model import LinearRegression
-from sklearn.svm import SVR
 import pickle
 import os
 
-# Get the directory of the current script
-current_dir = os.path.dirname(os.path.abspath(__file__))
-model_path = os.path.join(current_dir, 'model.pkl')
-
-
-## it says there is a FileNotFoundError with model.pkl file. 
-
 app = Flask(__name__)
+
+@app.route('/',methods=['GET'])
+def home():
+    return "<h1>API is working...</h1>"
 
 @app.route('/predict', methods=['POST'])
 def predict():
@@ -26,6 +22,6 @@ def predict():
     return jsonify({'predicted_ac_output': predicted_ac_output[0]})     # Return predicted AC output as JSON response
 
 if __name__ == '__main__':
-    model = pickle.load(open(model_path, 'rb')) #importing the ML model using pickle
-    app.run(debug=True)
-
+    model_path = os.path.join(os.path.dirname(__file__), 'model.pkl')
+    model = pickle.load(open(model_path, 'rb'))
+    app.run(host='0.0.0.0', port=os.environ.get('PORT', 8080))
