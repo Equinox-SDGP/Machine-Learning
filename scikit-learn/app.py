@@ -20,6 +20,7 @@ def predict():
 
     return jsonify({'predicted_ac_output': predicted_ac_output[0]})     # Return predicted AC output as JSON response
 
+
 if __name__ == '__main__':
     model = pickle.load(open('model.pkl', 'rb')) #importing the ML model using pickle
     app.run(debug=True)
