@@ -21,6 +21,7 @@ def predict():
 
     return jsonify({'predicted_ac_output': predicted_ac_output[0]})     # Return predicted AC output as JSON response
 
+
 if __name__ == '__main__':
     model_path = os.path.join(os.path.dirname(__file__), 'model.pkl')
     model = pickle.load(open(model_path, 'rb'))
